@@ -1,0 +1,16 @@
+[
+{
+  "modid": "gametools",
+  "name": "Lukeeff Game Tools",
+  "description": "Tools Minecraft is missing.",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "",
+  "updateUrl": "",
+  "authorList": ["lukeeff"],
+  "credits": "lukeeff for building the mod.",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]
