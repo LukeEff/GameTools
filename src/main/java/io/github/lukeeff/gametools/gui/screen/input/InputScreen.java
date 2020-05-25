@@ -1,17 +1,20 @@
 package io.github.lukeeff.gametools.gui.screen.input;
 
 import io.github.lukeeff.gametools.GameTools;
-import io.github.lukeeff.gametools.gui.GuiHandler;
 import io.github.lukeeff.gametools.gui.screen.GuiScreenWrapper;
-import io.github.lukeeff.gametools.gui.screen.textfield.GuiTextFieldWrapper;
-import io.github.lukeeff.gametools.gui.screen.textfield.TextFieldHandler;
-import io.github.lukeeff.gametools.gui.screen.textfield.TextFieldsRegistry;
+import io.github.lukeeff.gametools.gui.screen.input.textfield.GuiTextFieldWrapper;
+import io.github.lukeeff.gametools.gui.screen.input.textfield.TextFieldHandler;
 import lombok.Getter;
-import net.minecraft.client.gui.GuiTextField;
 
 import java.awt.*;
 import java.io.IOException;
 
+/**
+ * Input screen that is designed for creating executable key bindings.
+ *
+ * @author lukeff
+ * @since 5/24/2020
+ */
 public class InputScreen extends GuiScreenWrapper {
 
     @Getter private TextFieldHandler fieldHandler;
@@ -24,12 +27,18 @@ public class InputScreen extends GuiScreenWrapper {
         modifyButtonPositions();
     }
 
+    /**
+     * Modifies the positions of the buttons on the screen.
+     */
     private void modifyButtonPositions() {
         setXButtonPosition(getCenterWidth());
         setYButtonPosition((int) (getScreenHeight() * .75));
         setButtonPositions();
     }
 
+    /**
+     * Called when Gui is initialized.
+     */
     @Override
     public void initGui() {
         super.initGui();
@@ -39,11 +48,20 @@ public class InputScreen extends GuiScreenWrapper {
     }
 
 
+    /**
+     * Called when a key it typed.
+     *
+     * @param character character typed.
+     * @param keyValue value of the key typed.
+     */
     @Override
     protected void keyTyped(char character, int keyValue) {
         fieldHandler.handleInput(character, keyValue, 256, Color.GREEN.getRGB());
     }
 
+    /**
+     * Called when screen is to be updated.
+     */
     @Override
     public void updateScreen() {
         super.updateScreen();
@@ -53,6 +71,13 @@ public class InputScreen extends GuiScreenWrapper {
         }
     }
 
+    /**
+     * Called when screen will be drawn.
+     *
+     * @param mouseX position for mouse in x axis.
+     * @param mouseZ position for mouse in y axis.
+     * @param partialTicks partial ticks.
+     */
     @Override
     public void drawScreen(int mouseX, int mouseZ, float partialTicks) {
         this.drawDefaultBackground();
@@ -60,6 +85,13 @@ public class InputScreen extends GuiScreenWrapper {
         super.drawScreen(mouseX, mouseZ, partialTicks);
     }
 
+    /**
+     * Called on mouse click.
+     *
+     * @param x x position of cursor.
+     * @param y y position of cursor.
+     * @param btn button id.
+     */
     @Override
     protected void mouseClicked(int x, int y, int btn) {
         try {

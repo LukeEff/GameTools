@@ -1,4 +1,4 @@
-package io.github.lukeeff.gametools.gui.screen.textfield;
+package io.github.lukeeff.gametools.gui.screen.input.textfield;
 
 import io.github.lukeeff.gametools.gui.screen.GuiScreenWrapper;
 import lombok.Getter;
