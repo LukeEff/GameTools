@@ -11,16 +11,16 @@ public class GuiOpener {
     private final GameTools gameTools;
     private final GuiHandler guiHandler;
     private final Minecraft mc;
-    private final EntityPlayer p;
+    private EntityPlayer p;
 
     public GuiOpener(GameTools gameTools) {
         this.gameTools = gameTools;
         this.guiHandler = gameTools.getGuiHandler();
         this.mc = gameTools.getMinecraft();
-        this.p = mc.thePlayer;
     }
 
     private void openGui(int id) {
+        p = mc.thePlayer;
         final int posX = (int) p.posX;
         final int posY = (int) p.posY;
         final int posZ = (int) p.posZ;

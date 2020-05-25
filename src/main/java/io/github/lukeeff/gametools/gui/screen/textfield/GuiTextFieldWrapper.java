@@ -12,14 +12,12 @@ public class GuiTextFieldWrapper extends GuiTextField {
     @Getter private final String prompt;
     @Getter @Setter private int maxLength;
     @Getter @Setter private int color;
-
-    //public GuiTextFieldWrapper(int id, FontRenderer fontRenderer, int xPos, int yPos, int width, int length) {
-    //    super(id, fontRenderer, xPos, yPos, width, length);
-    //}
+    @Getter @Setter private boolean singleChar;
 
     public GuiTextFieldWrapper(String text, int id, FontRenderer fontRenderer, int xPos, int yPos, int width, int length) {
         super(id, fontRenderer, xPos, yPos, width, length);
         this.prompt = toPrompt(text);
+        this.singleChar = false;
         setFieldProperties();
     }
 
@@ -29,7 +27,7 @@ public class GuiTextFieldWrapper extends GuiTextField {
      * @param text the text.
      * @return the text as a prompt (Enter something here...).
      */
-    private String toPrompt(String text) {
+    public static String toPrompt(String text) {
         return "Enter " + text + " here...";
     }
 
@@ -50,8 +48,9 @@ public class GuiTextFieldWrapper extends GuiTextField {
     }
 
     public void clearField() {
+        final int maxLength = singleChar ? 1 : this.maxLength;
         super.setText("");
-        super.setMaxStringLength(this.maxLength);
+        super.setMaxStringLength(maxLength);
         super.setTextColor(this.color);
     }
 

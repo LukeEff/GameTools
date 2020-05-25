@@ -1,6 +1,7 @@
 package io.github.lukeeff.gametools.gui.screen.textfield;
 
 import io.github.lukeeff.gametools.gui.screen.GuiScreenWrapper;
+import net.minecraft.client.gui.GuiTextField;
 import org.lwjgl.input.Keyboard;
 
 import javax.annotation.Nullable;
@@ -22,21 +23,16 @@ public class TextFieldHandler {
     }
 
     public GuiTextFieldWrapper getFocusedTextField() {
-        for(GuiTextFieldWrapper field : textFieldsHandle) {
-            if(field.isFocused()) {
-                return field;
-            }
-        }
-        return null;
+        return textFieldsHandle.stream().filter(GuiTextField::isFocused).findAny().orElse(null);
     }
 
-    private void prepareInputEntry(GuiTextFieldWrapper field, int maxLength, @Nullable Integer color) {
+    private void prepareInputEntry(GuiTextFieldWrapper field, int maxLength, Integer color) {
         final int newColor = (color == null) ? field.getColor() : color;
+        field.setColor(newColor);
         if(!field.isModified()) {
             field.setMaxLength(maxLength);
             field.clearField();
         }
-        field.setColor(newColor);
     }
 
     private void handleInputEntry(char character, int keyValue, int maxLength, Integer color) {
@@ -48,11 +44,48 @@ public class TextFieldHandler {
     }
 
     public void handleInput(char character, int keyValue, int maxLength, Integer color) {
-        final int esc = Keyboard.KEY_ESCAPE;
-        if(keyValue == esc) {
+        if(pressedEscape(keyValue)) {
             screen.getGameTools().getGuiOpener().openHomeGui();
         } else {
             handleInputEntry(character, keyValue, maxLength, color);
         }
     }
+
+    /**
+     * Draws each text box.
+     */
+    public void drawTextBoxes() {
+        textFieldsHandle.forEach(GuiTextField::drawTextBox);
+    }
+
+    /**
+     * Calls the mouseClicked method on every text box.
+     *
+     * @param x mouse x position.
+     * @param y mouse y position.
+     * @param btn button.
+     */
+    public void mouseClicked(int x, int y, int btn) {
+        textFieldsHandle.forEach(field -> field.mouseClicked(x, y, btn));
+    }
+
+    public GuiTextFieldWrapper getFieldByKey(String key) {
+        final String prompt = GuiTextFieldWrapper.toPrompt(key);
+        return textFieldsHandle.stream().filter(field -> field.getPrompt().equals(prompt)).findAny().orElse(null);
+    }
+
+    /**
+     * Checks if the player typed the escape key.
+     *
+     * @param keyValue the value of the key pressed.
+     * @return true if escape was pressed.
+     */
+    private boolean pressedEscape(int keyValue) {
+        return keyValue == Keyboard.KEY_ESCAPE;
+    }
+
+    private void handleSingleCharField() {
+
+    }
+
 }

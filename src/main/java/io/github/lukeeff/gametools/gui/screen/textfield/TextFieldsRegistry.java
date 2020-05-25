@@ -3,7 +3,6 @@ package io.github.lukeeff.gametools.gui.screen.textfield;
 import io.github.lukeeff.gametools.gui.screen.GuiScreenWrapper;
 import lombok.Getter;
 import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.client.gui.GuiTextField;
 
 import java.util.ArrayList;
 import java.util.List;
