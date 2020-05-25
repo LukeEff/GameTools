@@ -47,4 +47,6 @@ public interface IButton {
      * @param yPosition the y position the button is at on the screen.
      */
     void setYPosition(int yPosition);
+
+
 }

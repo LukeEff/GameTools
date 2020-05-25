@@ -1,6 +1,7 @@
-package io.github.lukeeff.gametools.gui.button.buttons;
+package io.github.lukeeff.gametools.gui.button.buttons.gametools;
 
 import io.github.lukeeff.gametools.GameTools;
+import io.github.lukeeff.gametools.gui.button.buttons.GuiButtonWrapper;
 import io.github.lukeeff.gametools.gui.screen.GuiScreenWrapper;
 import io.github.lukeeff.gametools.gui.button.IButton;
 import net.minecraft.client.Minecraft;

@@ -1,48 +1,52 @@
-package io.github.lukeeff.gametools.gui.screen;
+package io.github.lukeeff.gametools.gui.screen.input;
 
 import io.github.lukeeff.gametools.GameTools;
 import io.github.lukeeff.gametools.gui.GuiHandler;
+import io.github.lukeeff.gametools.gui.screen.GuiScreenWrapper;
 import lombok.Getter;
 import net.minecraft.client.gui.GuiTextField;
-import org.lwjgl.input.Keyboard;
 
+import java.awt.*;
 import java.io.IOException;
 
 public class InputScreen extends GuiScreenWrapper {
 
     @Getter private InputHandler inputHandler;
+    @Getter private static final String SCREEN_KEY = "input";
 
     public InputScreen(GameTools gameTools) {
-        super(gameTools, "input");
+        super(gameTools, SCREEN_KEY);
         setXButtonPosition(getCenterWidth());
         setYButtonPosition(getScreenHeight() / 4);
         setButtonPositions();
     }
 
-
-
-
-
-
     @Override
     public void initGui() {
         super.initGui();
-        this.inputHandler = new InputHandler(this, GuiHandler.INPUT);
+        //this.inputHandler = new InputHandler(this, GuiHandler.INPUT);
+        this.inputHandler = new InputHandler(this);
     }
 
+
     @Override
-    protected void keyTyped(char character, int keyValue) throws IOException {
+    protected void keyTyped(char character, int keyValue) {
         GuiTextField textField = inputHandler.getFocusedTextField();
         if(textField != null) {
-            if(inputHandler.isPrompt(textField)) {
-                textField.setText("");
-            }
+            prepareInput(textField);
             textField.textboxKeyTyped(character, keyValue);
-            //if (!(keyValue == Keyboard.KEY_E)) super.keyTyped(character, keyValue);
+            textField.setTextColor(Color.GREEN.getRGB());
         }
     }
 
-
+    private void prepareInput(GuiTextField textField) {
+        if(inputHandler.isPrompt(textField)) {
+            textField.setText("");
+            if(textField == inputHandler.getKeyBindField()) {
+                textField.setMaxStringLength(1);
+            }
+        }
+    }
 
     @Override
     public void updateScreen() {
@@ -70,8 +74,5 @@ public class InputScreen extends GuiScreenWrapper {
             mc.thePlayer.sendChatMessage("Error: Something went wrong.");
         }
     }
-
-
-
 
 }

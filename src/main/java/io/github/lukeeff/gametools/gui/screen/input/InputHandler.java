@@ -1,5 +1,6 @@
-package io.github.lukeeff.gametools.gui.screen;
+package io.github.lukeeff.gametools.gui.screen.input;
 
+import io.github.lukeeff.gametools.gui.screen.GuiScreenWrapper;
 import lombok.Getter;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.GuiTextField;
@@ -14,11 +15,9 @@ public class InputHandler {
     @Getter private GuiTextField textField;
     @Getter private GuiTextField keyBindField;
     @Getter private final GuiScreenWrapper screen;
-    @Getter private final int Id;
 
-    public InputHandler(GuiScreenWrapper screen, int Id) {
+    public InputHandler(GuiScreenWrapper screen) {
         this.screen = screen;
-        this.Id = Id;
         setTextField();
         setKeyBindField();
     }
@@ -27,21 +26,22 @@ public class InputHandler {
         field.setText(text);
         field.setMaxStringLength(maxLength);
         field.setFocused(true);
-
     }
 
     private void setTextField() {
         final int xPos = screen.getCenterWidth() - 68;
         final int yPos = screen.getCenterHeight() - 46;
-        this.textField = new GuiTextField(Id, screen.getFontRendererObj(), xPos, yPos, 137, 20);
+        //TEMP ID
+        this.textField = new GuiTextField(0, screen.getFontRendererObj(), xPos, yPos, 137, 20);
         setInputField(textField, 256, INPUT_PROMPT);
     }
 
     private void setKeyBindField() {
         final int xPos = screen.getCenterWidth() - 68;
         final int yPos = screen.getCenterHeight() - 66;
-        this.keyBindField = new GuiTextField(Id, screen.getFontRendererObj(), xPos, yPos, 137, 20);
-        setInputField(keyBindField, 30, BIND_PROMPT);
+        //TEMP ID
+        this.keyBindField = new GuiTextField(0, screen.getFontRendererObj(), xPos, yPos, 137, 20);
+        setInputField(keyBindField, 256, BIND_PROMPT);
     }
 
     public GuiTextField getFocusedTextField() {

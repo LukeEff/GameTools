@@ -1,12 +1,16 @@
 package io.github.lukeeff.gametools.gui.button;
 
 import io.github.lukeeff.gametools.GameTools;
-import io.github.lukeeff.gametools.gui.button.buttons.DebugButton;
-import io.github.lukeeff.gametools.gui.button.buttons.InputButton;
+import io.github.lukeeff.gametools.gui.button.buttons.ToggleableButton;
+import io.github.lukeeff.gametools.gui.button.buttons.gametools.BunnyHop;
+import io.github.lukeeff.gametools.gui.button.buttons.gametools.DebugButton;
+import io.github.lukeeff.gametools.gui.button.buttons.gametools.InputButton;
+import io.github.lukeeff.gametools.gui.button.buttons.gametools.Sprint;
 import io.github.lukeeff.gametools.gui.button.buttons.input.Finished;
 import lombok.Getter;
 import net.minecraft.client.gui.GuiButton;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -17,10 +21,12 @@ public class ButtonRegistry {
 
     private final GameTools gameTools;
     @Getter private final Map<String, List<GuiButton>> buttons;
+    @Getter private static final List<ToggleableButton> TOGGLEABLE_BUTTONS = new ArrayList<>();
 
     public ButtonRegistry(GameTools gameTools) {
         this.gameTools = gameTools;
         this.buttons = new HashMap<>();
+
         registerGameToolsButtons();
         registerInputScreenButtons();
     }
@@ -31,7 +37,9 @@ public class ButtonRegistry {
     private void registerGameToolsButtons() {
         addButton("gametools",
                 new InputButton(gameTools),
-                new DebugButton(gameTools));
+                new DebugButton(gameTools),
+                new Sprint(gameTools),
+                new BunnyHop(gameTools));
     }
 
     /**

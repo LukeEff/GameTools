@@ -1,13 +1,16 @@
-package io.github.lukeeff.gametools.gui.screen;
+package io.github.lukeeff.gametools.gui.screen.gametools;
 
 import io.github.lukeeff.gametools.GameTools;
 import io.github.lukeeff.gametools.gui.button.ButtonRegistry;
+import io.github.lukeeff.gametools.gui.screen.GuiScreenWrapper;
 import lombok.Getter;
 
 public class GameToolsScreen extends GuiScreenWrapper {
 
+    @Getter public static final String SCREEN_KEY = "gametools";
+
     public GameToolsScreen(GameTools gameTools) {
-        super(gameTools, "gametools");
+        super(gameTools, SCREEN_KEY);
     }
 
     /**

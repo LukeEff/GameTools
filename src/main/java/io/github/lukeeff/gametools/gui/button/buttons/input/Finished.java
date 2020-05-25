@@ -2,10 +2,10 @@ package io.github.lukeeff.gametools.gui.button.buttons.input;
 
 import io.github.lukeeff.gametools.GameTools;
 import io.github.lukeeff.gametools.gui.GuiHandler;
-import io.github.lukeeff.gametools.gui.button.IButton;
 import io.github.lukeeff.gametools.gui.button.buttons.GuiButtonWrapper;
 import io.github.lukeeff.gametools.gui.screen.GuiScreenWrapper;
-import io.github.lukeeff.gametools.gui.screen.InputScreen;
+import io.github.lukeeff.gametools.gui.screen.gametools.GameToolsScreen;
+import io.github.lukeeff.gametools.gui.screen.input.InputScreen;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.EntityPlayerSP;
 import net.minecraft.client.settings.KeyBinding;
@@ -25,7 +25,9 @@ public class Finished extends GuiButtonWrapper {
         InputScreen inputScreen = (InputScreen) screen;
         registerShortCut(inputScreen);
         EntityPlayerSP p = mc.thePlayer;
-        p.openGui(gameTools, GuiHandler.GAME_TOOLS, mc.theWorld, (int) p.posX, (int) p.posY, (int) p.posZ);
+        int id = gameTools.getGuiHandler().getGuiId(GameToolsScreen.getSCREEN_KEY());
+        //p.openGui(gameTools, GuiHandler.GAME_TOOLS, mc.theWorld, (int) p.posX, (int) p.posY, (int) p.posZ);
+        p.openGui(gameTools, id, mc.theWorld, (int) p.posX, (int) p.posY, (int) p.posZ);
     }
 
    private void registerShortCut(InputScreen inputScreen) {
