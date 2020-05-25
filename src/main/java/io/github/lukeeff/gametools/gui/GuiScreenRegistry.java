@@ -18,14 +18,14 @@ import java.util.Map;
  * @author lukeeff
  * @since 5/24/2020
  */
-public class ScreenRegistry {
+public class GuiScreenRegistry {
 
-    @Getter private final Map<String, Integer> guiIdHandle;
-    @Getter private final List<GuiFactory> factoryHandle;
+    @Getter private final Map<String, Integer> guiIdHandles;
+    @Getter private final List<GuiFactory> factoryHandles;
     @Getter private final GameTools gameTools;
 
     /**
-     * Simple Screen Factory created with the intentions of avoiding code duplication.
+     * Simple Gui Factory created with the intentions of avoiding code duplication.
      *
      * Simply implement the method inside of the fillScreenList method and it will be good to go!
      */
@@ -38,9 +38,9 @@ public class ScreenRegistry {
      *
      * @param gameTools the main instance.
      */
-    public ScreenRegistry(@NonNull final GameTools gameTools) {
-        this.guiIdHandle = new HashMap<>();
-        this.factoryHandle = new ArrayList<>();
+    public GuiScreenRegistry(@NonNull final GameTools gameTools) {
+        this.guiIdHandles = new HashMap<>();
+        this.factoryHandles = new ArrayList<>();
         this.gameTools = gameTools;
         initGuiRegistration();
     }
@@ -66,7 +66,7 @@ public class ScreenRegistry {
      * @param id the id of the gui.
      */
     private void registerId(String key, int id) {
-        guiIdHandle.put(key, id);
+        guiIdHandles.put(key, id);
     }
 
     /**
@@ -75,11 +75,13 @@ public class ScreenRegistry {
      * @param factory the factory to be registered.
      */
     private void registerFactory(GuiFactory factory) {
-        factoryHandle.add(factory);
+        factoryHandles.add(factory);
     }
 
     /**
      * Initializes the Gui registration process.
+     *
+     * When adding new screens, they only need to be added here.
      */
     private void initGuiRegistration() {
         handleRegistrationMapping(
@@ -87,22 +89,5 @@ public class ScreenRegistry {
                 () -> new InputScreen(gameTools)
         );
     }
-/*
-    /**
-     * Register new
-
-    private void fillScreenList() {
-        screenList.addAll(Lists.newArrayList(
-                () -> new GameToolsScreen(gameTools),
-                () -> new InputScreen(gameTools)
-        ));
-    }
-
-    private void fillMap() {
-        for(int i = 0; i < screenList.size(); i++) {
-            ID_MAP.put(screenList.get(i).init().getScreenKey(), i);
-        }
-    }
-*/
 
 }

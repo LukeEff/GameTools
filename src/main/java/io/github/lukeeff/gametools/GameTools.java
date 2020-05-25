@@ -1,6 +1,7 @@
 package io.github.lukeeff.gametools;
 
 import io.github.lukeeff.gametools.gui.GuiHandler;
+import io.github.lukeeff.gametools.gui.GuiOpener;
 import io.github.lukeeff.gametools.gui.button.ButtonRegistry;
 import io.github.lukeeff.gametools.gui.button.ToggledButtonHandler;
 import io.github.lukeeff.gametools.key.KeyHandler;
@@ -19,6 +20,7 @@ public class GameTools {
         @Getter private KeyHandler keyHandler;
         @Getter private ToggledButtonHandler toggledButtonHandler;
         @Getter private GuiHandler guiHandler;
+        @Getter private GuiOpener guiOpener;
 
         public static final String MODID = "gametools";
         public static final String VERSION = "1.0";
@@ -33,7 +35,7 @@ public class GameTools {
             this.guiHandler = new GuiHandler(this);
             NetworkRegistry.INSTANCE.registerGuiHandler(this, guiHandler);
             MinecraftForge.EVENT_BUS.register(keyHandler);
-
+            this.guiOpener = new GuiOpener(this);
         }
 
 }

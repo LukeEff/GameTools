@@ -3,6 +3,8 @@ package io.github.lukeeff.gametools.gui.screen.input;
 import io.github.lukeeff.gametools.GameTools;
 import io.github.lukeeff.gametools.gui.GuiHandler;
 import io.github.lukeeff.gametools.gui.screen.GuiScreenWrapper;
+import io.github.lukeeff.gametools.gui.screen.textfield.TextFieldHandler;
+import io.github.lukeeff.gametools.gui.screen.textfield.TextFieldsRegistry;
 import lombok.Getter;
 import net.minecraft.client.gui.GuiTextField;
 
@@ -12,20 +14,38 @@ import java.io.IOException;
 public class InputScreen extends GuiScreenWrapper {
 
     @Getter private InputHandler inputHandler;
+    @Getter private TextFieldsRegistry textRegistry;
+    @Getter private TextFieldHandler fieldHandler;
     @Getter private static final String SCREEN_KEY = "input";
-
+    private static final String keyBindName = "keybind";
+    private static final String shortCutName = "shortcut";
+/*
     public InputScreen(GameTools gameTools) {
         super(gameTools, SCREEN_KEY);
         setXButtonPosition(getCenterWidth());
-        setYButtonPosition(getScreenHeight() / 4);
+        setYButtonPosition((int) (getScreenHeight() * .75));
+        setButtonPositions();
+    }
+*/
+    public InputScreen(GameTools gameTools) {
+        super(gameTools, SCREEN_KEY);
+        modifyButtonPositions();
+
+    }
+
+    private void modifyButtonPositions() {
+        setXButtonPosition(getCenterWidth());
+        setYButtonPosition((int) (getScreenHeight() * .75));
         setButtonPositions();
     }
 
     @Override
     public void initGui() {
         super.initGui();
-        //this.inputHandler = new InputHandler(this, GuiHandler.INPUT);
-        this.inputHandler = new InputHandler(this);
+        int id = gameTools.getGuiHandler().getGuiId(SCREEN_KEY);
+        //textRegistry = new TextFieldsRegistry(this, id, keyBindName, shortCutName);
+        fieldHandler = new TextFieldHandler(this, id, keyBindName, shortCutName);
+        //this.inputHandler = new InputHandler(this);
     }
 
 

@@ -1,7 +1,7 @@
 package io.github.lukeeff.gametools.gui;
 
 import io.github.lukeeff.gametools.GameTools;
-import io.github.lukeeff.gametools.gui.ScreenRegistry.GuiFactory;
+import io.github.lukeeff.gametools.gui.GuiScreenRegistry.GuiFactory;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.network.IGuiHandler;
@@ -20,10 +20,16 @@ public class GuiHandler implements IGuiHandler {
     private final Map<String, Integer> guiIdHandle;
     private final List<GuiFactory> guiFactories;
 
+    /**
+     * Constructor for GuiHandler. Initiates the GuiScreen registration process and holds a reference
+     * to the factories and ids of each GuiScreen object.
+     *
+     * @param gameTools instance of the main class.
+     */
     public GuiHandler(GameTools gameTools) {
-        final ScreenRegistry screenRegistry = new ScreenRegistry(gameTools);
-        guiFactories = screenRegistry.getFactoryHandle();
-        guiIdHandle = screenRegistry.getGuiIdHandle();
+        final GuiScreenRegistry screenRegistry = new GuiScreenRegistry(gameTools);
+        guiFactories = screenRegistry.getFactoryHandles();
+        guiIdHandle = screenRegistry.getGuiIdHandles();
     }
 
     /**
@@ -32,23 +38,37 @@ public class GuiHandler implements IGuiHandler {
      * @param key the name of the gui.
      * @return the id of the gui.
      */
-    public Integer getGuiId(String key) {
+    public int getGuiId(String key) {
         return guiIdHandle.get(key);
     }
 
-    @Override
-    public Object getServerGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
-        return null;
-    }
 
+    /**
+     * Gets the client Gui element object reference.
+     *
+     * @param id the id of the gui.
+     * @param player the player.
+     * @param world the world.
+     * @param x x position of the player.
+     * @param y y position of the player.
+     * @param z z position of the player.
+     *
+     * @return a new instance of a gui screen object relative to the specified id.
+     */
     @Override
-    public Object getClientGuiElement(int ID, EntityPlayer player, World world, int x, int y, int z) {
-        if(guiFactories.size() >= ID) {
-            return guiFactories.get(ID).init();
+    public Object getClientGuiElement(int id, EntityPlayer player, World world, int x, int y, int z) {
+        if(guiFactories.size() >= id) {
+            return guiFactories.get(id).init();
         }
         return null;
     }
 
-
+    /**
+     * Not applicable for this mod.
+     */
+    @Override
+    public Object getServerGuiElement(int id, EntityPlayer player, World world, int x, int y, int z) {
+        return null;
+    }
 
 }

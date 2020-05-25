@@ -54,8 +54,8 @@ public class KeyHandler {
         if (event.phase == TickEvent.Phase.START) {
             EntityPlayerSP p = mc.thePlayer;
             if (key.isPressed()) {
-               // p.openGui(gameTools, GuiHandler.GAME_TOOLS, mc.theWorld, (int) p.posX, (int) p.posY, (int) p.posZ);
-                p.openGui(gameTools, /*GuiHandler.getScreenId(GameToolsScreen.getSCREEN_KEY())*/ 0, mc.theWorld, (int) p.posX, (int) p.posY, (int) p.posZ); //debug
+                int id = gameTools.getGuiHandler().getGuiId(GameToolsScreen.getSCREEN_KEY());
+                p.openGui(gameTools, id, mc.theWorld, (int) p.posX, (int) p.posY, (int) p.posZ);
             } else {
                 handleShortCutKeys();
             }
@@ -70,22 +70,5 @@ public class KeyHandler {
             }
         }
     }
-
-    /*
-    private void updatePlayer(EntityPlayerSP p) {
-        List<GuiButton> buttonList = gameTools.getButtonRegistry().getButtons().get("gametools");
-        List<ToggleableButton> toggleableButtons;
-        toggleableButtons = buttonList.stream().filter(b -> (b instanceof ToggleableButton)).map(b -> (ToggleableButton) b).collect(Collectors.toList());
-
-        for (ToggleableButton button: toggleableButtons) {
-            if(button.isToggled()) {
-                button.onTick(mc);
-            }
-        }
-    }
-
-     */
-
-
 
 }

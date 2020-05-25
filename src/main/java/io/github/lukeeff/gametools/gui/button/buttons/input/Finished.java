@@ -26,9 +26,36 @@ public class Finished extends GuiButtonWrapper {
         registerShortCut(inputScreen);
         EntityPlayerSP p = mc.thePlayer;
         int id = gameTools.getGuiHandler().getGuiId(GameToolsScreen.getSCREEN_KEY());
-        //p.openGui(gameTools, GuiHandler.GAME_TOOLS, mc.theWorld, (int) p.posX, (int) p.posY, (int) p.posZ);
+
         p.openGui(gameTools, id, mc.theWorld, (int) p.posX, (int) p.posY, (int) p.posZ);
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
    private void registerShortCut(InputScreen inputScreen) {
        final String text = inputScreen.getInputHandler().getTextField().getText();
